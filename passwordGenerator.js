@@ -41,6 +41,23 @@ const Password = {
       const randChar = letters[randIn];
       password2.push(randChar);
     };
-    return password + password2.join('')
+    return password + password2.join('');
+  },
+
+  part3 (password) {
+    let breaks = Math.floor(Math.random() * (password.length) / 3)
+    password = password.split('')
+    while (breaks) {
+      let randIn = Math.floor(Math.random() * (password.length - 2) + 1);
+      password.splice(randIn, 0, '-')
+      breaks--;
+    };
+    return password.join('')
+  },
+
+  makePass () {
+    console.log(`Your random password is :  ${this.part3(this.part2(this.part1()))}.`)
   }
 }
+
+Password.makePass();
