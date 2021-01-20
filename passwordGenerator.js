@@ -1,12 +1,8 @@
 const Password = {
-  part1 () {
+  shouffle(nums) {
     let password;
-    const nums = [];
-    for (let i in [...Array(5)]) {
-      nums.push(Math.floor(Math.random() * 10))
-    };
-    const randNum1 = Math.floor(Math.random() * 5);
-    const randNum2 = Math.floor(Math.random() * 5);
+    const randNum1 = Math.floor(Math.random() * nums.length);
+    const randNum2 = Math.floor(Math.random() * nums.length);
     const maxRand = Math.max(randNum1, randNum2);
     const minRand = Math.min(randNum1, randNum2);
     const order = Math.floor(Math.random() * 5);
@@ -30,7 +26,16 @@ const Password = {
         password = c.concat(a).concat(b);
         break;  
     };
-    return password.join('');
+    return password;
+  },
+  
+  part1() {
+    const nums = [];
+    for (let i in [...Array(5)]) {
+      nums.push(Math.floor(Math.random() * 10))
+    };
+    const password = this.shouffle(nums);
+    return password;
   },
   
   part2 (password) {
@@ -41,12 +46,12 @@ const Password = {
       const randChar = letters[randIn];
       password2.push(randChar);
     };
-    return password + password2.join('');
+    const shouffledPassword = this.shouffle(password.concat(password2));
+    return shouffledPassword;
   },
 
   part3 (password) {
     let breaks = Math.floor(Math.random() * (password.length) / 3)
-    password = password.split('')
     while (breaks) {
       let randIn = Math.floor(Math.random() * (password.length - 2) + 1);
       password.splice(randIn, 0, '-')
